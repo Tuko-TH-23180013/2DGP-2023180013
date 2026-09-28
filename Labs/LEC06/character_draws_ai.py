@@ -48,3 +48,11 @@ def move_triangle():
     move_between(a, b)
     move_between(b, c)
     move_between(c, a)
+
+try:
+    while True:
+        move_circle()
+        move_rectangle()
+        move_triangle()
+finally:
+    close_canvas()
