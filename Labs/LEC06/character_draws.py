@@ -46,6 +46,15 @@ def move_left():
         draw_character(50, y)
     pass
 
+def move_a_to_b():
+    pass
+
+def move_b_to_c():
+    pass
+
+def move_c_to_a():
+    pass
+
 
 def move_rectangle():
     print('rectangle')
@@ -56,6 +65,9 @@ def move_rectangle():
     pass
 def move_triangle():
     print('triangle')
+    move_a_to_b()
+    move_b_to_c()
+    move_c_to_a()
     pass
 
 
