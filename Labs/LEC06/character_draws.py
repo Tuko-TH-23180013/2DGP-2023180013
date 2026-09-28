@@ -62,9 +62,14 @@ def move_triangle():
 
 
 while True:
+    move_top()
+    move_right()
+    move_bottom()
     move_left()
+
+    
     move_circle()
-    #move_rectangle()
+    move_rectangle()
     move_triangle()
     pass
 
