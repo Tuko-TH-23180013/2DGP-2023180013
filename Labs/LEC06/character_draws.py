@@ -24,6 +24,8 @@ def move_circle():
 
 def move_top():
     print('top')
+    for x in range(50, 751, 5):
+        draw_character(x,550)
     pass
 
 def move_right():
