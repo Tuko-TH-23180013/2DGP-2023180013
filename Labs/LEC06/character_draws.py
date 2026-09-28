@@ -13,10 +13,10 @@ def move_circle():
         x=400+200*math.cos(theta)
         y=300+200*math.sin(theta)
 
-    clear_canvas()
-    character.draw(400,300)
-    update_canvas()
-    delay(1)
+        clear_canvas()
+        character.draw(x,y)
+        update_canvas()
+        delay(0.01)
 
     pass
 def move_rectangle():
