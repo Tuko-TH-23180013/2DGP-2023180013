@@ -105,12 +105,9 @@ def move_triangle():
 
 while True:
 
-    move_a_to_b()
-    move_b_to_c()
-    move_c_to_a()
     move_circle()
     move_rectangle()
-    #move_triangle()
+    move_triangle()
     pass
 
 
