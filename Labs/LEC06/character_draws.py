@@ -65,6 +65,13 @@ def move_a_to_b():
 
 def move_b_to_c():
     print('b to c')
+    for step in range(n + 1):
+        t = step / n
+
+        x = b[0] + (c[0] - b[0]) * t
+        y = b[1] + (c[1] - b[1]) * t
+
+        draw_character(x, y)
     pass
 
 def move_c_to_a():
@@ -90,9 +97,9 @@ def move_triangle():
 
 
 while True:
-    move_a_to_b()
-    #move_circle()
-    #move_rectangle()
+    
+    move_circle()
+    move_rectangle()
     #move_triangle()
     pass
 
