@@ -46,6 +46,10 @@ def move_left():
         draw_character(50, y)
     pass
 
+a=(100, 100)
+b=(700,100)
+c=(400,500)
+
 def move_a_to_b():
     print('a to b')
     pass
