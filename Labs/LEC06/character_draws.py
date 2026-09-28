@@ -90,9 +90,10 @@ def move_triangle():
 
 
 while True:
-    move_circle()
-    move_rectangle()
-    move_triangle()
+    move_a_to_b()
+    #move_circle()
+    #move_rectangle()
+    #move_triangle()
     pass
 
 
