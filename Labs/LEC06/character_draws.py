@@ -97,7 +97,7 @@ def move_triangle():
 
 
 while True:
-    
+    move_b_to_c()
     move_circle()
     move_rectangle()
     #move_triangle()
