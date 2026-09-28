@@ -47,12 +47,15 @@ def move_left():
     pass
 
 def move_a_to_b():
+    print('a to b')
     pass
 
 def move_b_to_c():
+    print('b to c')
     pass
 
 def move_c_to_a():
+    print('c to a')
     pass
 
 
