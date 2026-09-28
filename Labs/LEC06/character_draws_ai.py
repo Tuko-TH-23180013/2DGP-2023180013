@@ -31,3 +31,20 @@ def move_rectangle():
         draw_character(x, 50)
     for y in range(50, 551, 5):
         draw_character(50, y)
+
+
+def move_between(start, end, steps=60):
+    for step in range(steps + 1):
+        t = step / steps
+        x = start[0] + (end[0] - start[0]) * t
+        y = start[1] + (end[1] - start[1]) * t
+        draw_character(x, y)
+
+
+def move_triangle():
+    a = (100, 100)
+    b = (700, 100)
+    c = (400, 500)
+    move_between(a, b)
+    move_between(b, c)
+    move_between(c, a)
