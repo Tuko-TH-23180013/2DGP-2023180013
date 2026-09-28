@@ -49,24 +49,18 @@ def move_left():
 a=(100, 100)
 b=(700,100)
 c=(400,500)
-
-#대각선 이동 구현
-ex1=(100, 100)
-ex2=(700,100)
-
-n=12
-#n은 이동 간격, 예시로 12 잡음
-for step in range(n + 1):
-    t = step / n
-    x1=100+(700-100)*t
-y1=100+(100-100)*t
-#t=0이면 시작점
-#t=1이면 끝점
-
+n=60
 
 
 def move_a_to_b():
     print('a to b')
+    for step in range(n + 1):
+        t = step / n
+
+        x = a[0] + (b[0] - a[0]) * t
+        y = a[1] + (b[1] - a[1]) * t
+
+        draw_character(x, y)
     pass
 
 def move_b_to_c():
