@@ -41,6 +41,9 @@ while running:
                      - sprite_frame['y'] - sprite_frame['height'])
     source_width = sprite_frame['width']
     source_height = sprite_frame['height']
+    jump_offset = 0
+    if action == 'jump' and action_frame_count > 1:
+        jump_offset = round(25 * sin(frame * 3.14159 / (action_frame_count - 1)))
     local_center_x = (sprite_frame['source_left'] + source_width / 2
                       - atlas_metadata['source_cell_width'] / 2)
     local_center_y = (atlas_metadata['source_cell_height'] / 2
