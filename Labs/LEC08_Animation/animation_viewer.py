@@ -48,11 +48,20 @@ while running:
                       - atlas_metadata['source_cell_width'] / 2)
     local_center_y = (atlas_metadata['source_cell_height'] / 2
                       - sprite_frame['source_top'] - source_height / 2)
-    draw_x = SCREEN_WIDTH // 2 + int(local_center_x)
+    playback_frame = completed_repeats * action_frame_count + frame
+    total_frames = action_frame_count * ANIMATION_REPEAT_COUNT
+    outbound_frames = total_frames // 2
+    if action == 'idle':
+        movement = 0
+    elif playback_frame < outbound_frames:
+        movement = int(180 * playback_frame / (outbound_frames - 1))
+    else:
+        return_frames = total_frames - outbound_frames
+        movement = int(180 * (total_frames - 1 - playback_frame) / (return_frames - 1))
     draw_y = SCREEN_HEIGHT // 2 + int(local_center_y * CHARACTER_SCALE)
     draw_width = int(source_width * CHARACTER_SCALE)
     draw_height = int(source_height * CHARACTER_SCALE)
-    draw_x = SCREEN_WIDTH // 2 + int(local_center_x * CHARACTER_SCALE)
+    draw_x = SCREEN_WIDTH // 2 + movement + int(local_center_x * CHARACTER_SCALE)
     knight_atlas.clip_draw(
         source_left, source_bottom, source_width, source_height,
         draw_x, draw_y, draw_width, draw_height,
