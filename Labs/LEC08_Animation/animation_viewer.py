@@ -29,6 +29,9 @@ while running:
 
     background.draw(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                     SCREEN_WIDTH, SCREEN_HEIGHT)
+    animation = action_metadata[action]
+    action_frame_count = animation['frame_count']
+    sprite_frame = animation['frames'][frame]
     update_canvas()
     delay(FRAME_DELAY)
 
