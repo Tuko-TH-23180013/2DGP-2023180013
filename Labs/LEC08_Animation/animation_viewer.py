@@ -32,6 +32,11 @@ while running:
     animation = action_metadata[action]
     action_frame_count = animation['frame_count']
     sprite_frame = animation['frames'][frame]
+    source_left = sprite_frame['x']
+    source_bottom = (atlas_metadata['atlas_height']
+                     - sprite_frame['y'] - sprite_frame['height'])
+    source_width = sprite_frame['width']
+    source_height = sprite_frame['height']
     update_canvas()
     delay(FRAME_DELAY)
 
