@@ -54,19 +54,29 @@ while running:
     outbound_frames = total_frames // 2
     if action == 'idle':
         movement = 0
+        facing = direction
     elif playback_frame < outbound_frames:
         movement = int(180 * playback_frame / (outbound_frames - 1))
+        facing = direction
     else:
         return_frames = total_frames - outbound_frames
         movement = int(180 * (total_frames - 1 - playback_frame) / (return_frames - 1))
+        facing = -direction
     draw_y = SCREEN_HEIGHT // 2 + int(local_center_y * CHARACTER_SCALE)
     draw_width = int(source_width * CHARACTER_SCALE)
     draw_height = int(source_height * CHARACTER_SCALE)
-    draw_x = SCREEN_WIDTH // 2 + direction * movement + int(local_center_x * CHARACTER_SCALE)
-    knight_atlas.clip_draw(
-        source_left, source_bottom, source_width, source_height,
-        draw_x, draw_y, draw_width, draw_height,
-    )
+    draw_x = (SCREEN_WIDTH // 2 + direction * movement
+              + int(local_center_x * CHARACTER_SCALE * facing))
+    if facing > 0:
+        knight_atlas.clip_draw(
+            source_left, source_bottom, source_width, source_height,
+            draw_x, draw_y, draw_width, draw_height,
+        )
+    else:
+        knight_atlas.clip_composite_draw(
+            source_left, source_bottom, source_width, source_height,
+            0, 'h', draw_x, draw_y, draw_width, draw_height,
+        )
     update_canvas()
     frame += 1
     if frame >= action_frame_count:
