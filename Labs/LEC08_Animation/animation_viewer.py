@@ -37,6 +37,10 @@ while running:
                      - sprite_frame['y'] - sprite_frame['height'])
     source_width = sprite_frame['width']
     source_height = sprite_frame['height']
+    knight_atlas.clip_draw(
+        source_left, source_bottom, source_width, source_height,
+        SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, source_width, source_height,
+    )
     update_canvas()
     delay(FRAME_DELAY)
 
