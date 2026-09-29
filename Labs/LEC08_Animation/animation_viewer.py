@@ -14,6 +14,10 @@ knight_atlas = load_image('fantasy_knight_variable_atlas.png')
 with open('fantasy_knight_frames.json', encoding='utf-8') as metadata_file:
     atlas_metadata = json.load(metadata_file)
 action_metadata = atlas_metadata['actions']
+ANIMATION_SEQUENCE = ('idle', 'walk', 'run', 'jump', 'attack')
+sequence_index = 0
+action = ANIMATION_SEQUENCE[sequence_index]
+frame = 0
 running = True
 
 while running:
