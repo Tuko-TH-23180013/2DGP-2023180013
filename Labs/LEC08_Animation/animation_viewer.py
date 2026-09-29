@@ -52,6 +52,9 @@ while running:
         draw_x, draw_y, draw_width, draw_height,
     )
     update_canvas()
+    frame += 1
+    if frame >= action_frame_count:
+        frame = 0
     delay(FRAME_DELAY)
 
 close_canvas()
