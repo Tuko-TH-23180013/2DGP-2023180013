@@ -1,4 +1,5 @@
 import json
+from math import sin
 
 from pico2d import *
 
