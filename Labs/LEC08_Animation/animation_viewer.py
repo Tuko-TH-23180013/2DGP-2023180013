@@ -10,6 +10,10 @@ FRAME_DELAY = 0.09
 
 open_canvas(SCREEN_WIDTH, SCREEN_HEIGHT)
 background = load_image('fantasy_forest_background.png')
+knight_atlas = load_image('fantasy_knight_variable_atlas.png')
+with open('fantasy_knight_frames.json', encoding='utf-8') as metadata_file:
+    atlas_metadata = json.load(metadata_file)
+action_metadata = atlas_metadata['actions']
 running = True
 
 while running:
