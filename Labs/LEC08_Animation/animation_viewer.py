@@ -19,6 +19,7 @@ action_metadata = atlas_metadata['actions']
 ANIMATION_SEQUENCE = ('idle', 'walk', 'run', 'jump', 'attack')
 sequence_index = 0
 action = ANIMATION_SEQUENCE[sequence_index]
+direction = 1
 frame = 0
 completed_repeats = 0
 ANIMATION_REPEAT_COUNT = 5
@@ -61,7 +62,7 @@ while running:
     draw_y = SCREEN_HEIGHT // 2 + int(local_center_y * CHARACTER_SCALE)
     draw_width = int(source_width * CHARACTER_SCALE)
     draw_height = int(source_height * CHARACTER_SCALE)
-    draw_x = SCREEN_WIDTH // 2 + movement + int(local_center_x * CHARACTER_SCALE)
+    draw_x = SCREEN_WIDTH // 2 + direction * movement + int(local_center_x * CHARACTER_SCALE)
     knight_atlas.clip_draw(
         source_left, source_bottom, source_width, source_height,
         draw_x, draw_y, draw_width, draw_height,
@@ -74,6 +75,7 @@ while running:
         if completed_repeats >= ANIMATION_REPEAT_COUNT:
             completed_repeats = 0
             delay(1.0)
+            direction *= -1
             sequence_index = (sequence_index + 1) % len(ANIMATION_SEQUENCE)
             action = ANIMATION_SEQUENCE[sequence_index]
             frame = 0
