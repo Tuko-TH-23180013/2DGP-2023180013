@@ -63,6 +63,7 @@ while running:
             delay(1.0)
             sequence_index = (sequence_index + 1) % len(ANIMATION_SEQUENCE)
             action = ANIMATION_SEQUENCE[sequence_index]
+            frame = 0
     delay(FRAME_DELAY)
 
 close_canvas()
