@@ -60,6 +60,7 @@ while running:
         completed_repeats += 1
         if completed_repeats >= ANIMATION_REPEAT_COUNT:
             completed_repeats = 0
+            delay(1.0)
             sequence_index = (sequence_index + 1) % len(ANIMATION_SEQUENCE)
             action = ANIMATION_SEQUENCE[sequence_index]
     delay(FRAME_DELAY)
