@@ -19,6 +19,8 @@ ANIMATION_SEQUENCE = ('idle', 'walk', 'run', 'jump', 'attack')
 sequence_index = 0
 action = ANIMATION_SEQUENCE[sequence_index]
 frame = 0
+completed_repeats = 0
+ANIMATION_REPEAT_COUNT = 5
 running = True
 
 while running:
