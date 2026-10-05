@@ -122,6 +122,17 @@ def validate_action_data() -> None:
                 raise ValueError(f"{action.name}의 {index}번 프레임이 이미지 아래쪽을 벗어납니다.")
 
 
+def validate_image_dimensions(image: object) -> None:
+    """불러온 원본 이미지가 PRD에 기재된 크기인지 확인한다."""
+    width = getattr(image, "w", None)
+    height = getattr(image, "h", None)
+    if (width, height) != (SPRITE_SHEET_WIDTH, SPRITE_SHEET_HEIGHT):
+        raise ValueError(
+            "스프라이트 시트 크기가 예상과 다릅니다: "
+            f"예상 {SPRITE_SHEET_WIDTH}×{SPRITE_SHEET_HEIGHT}, 실제 {width}×{height}"
+        )
+
+
 def main() -> None:
     """애니메이션 뷰어를 초기화하고 게임 루프를 실행한다."""
     from pico2d import close_canvas, load_image, open_canvas
@@ -135,6 +146,7 @@ def main() -> None:
             sprite_sheet = load_image(str(SPRITE_SHEET_PATH))
         except Exception as error:
             raise RuntimeError(f"스프라이트 시트를 읽을 수 없습니다: {SPRITE_SHEET_PATH}") from error
+        validate_image_dimensions(sprite_sheet)
         # 렌더링과 재생 상태는 이후 개발 단계에서 이 루프에 추가한다.
         del sprite_sheet
     except (FileNotFoundError, RuntimeError) as error:
