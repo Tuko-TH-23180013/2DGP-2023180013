@@ -15,6 +15,10 @@ ACTION_PAUSE_SECONDS = 1.0
 FRAME_INTERVAL = 0.08
 
 SPRITE_SHEET_PATH = Path(__file__).resolve().with_name("sonic-sprite.png")
+SPRITE_SHEET_WIDTH = 399
+SPRITE_SHEET_HEIGHT = 525
+EXPECTED_ACTION_COUNT = 10
+EXPECTED_FRAME_COUNT = 76
 
 
 @dataclass(frozen=True)
@@ -95,10 +99,34 @@ ACTIONS: tuple[Action, ...] = (
 )
 
 
+def validate_action_data() -> None:
+    """PRD의 동작 수, 프레임 수, 스프라이트 시트 경계를 확인한다."""
+    if len(ACTIONS) != EXPECTED_ACTION_COUNT:
+        raise ValueError(f"동작 수가 {EXPECTED_ACTION_COUNT}개가 아닙니다.")
+
+    frame_count = sum(len(action.frames) for action in ACTIONS)
+    if frame_count != EXPECTED_FRAME_COUNT:
+        raise ValueError(f"프레임 수가 {EXPECTED_FRAME_COUNT}개가 아닙니다: {frame_count}")
+
+    for action in ACTIONS:
+        if not action.frames:
+            raise ValueError(f"{action.name} 동작에 프레임이 없습니다.")
+        for index, frame in enumerate(action.frames):
+            if frame.width <= 0 or frame.height <= 0:
+                raise ValueError(f"{action.name}의 {index}번 프레임 크기가 잘못됐습니다.")
+            if frame.x < 0 or frame.y < 0:
+                raise ValueError(f"{action.name}의 {index}번 프레임 좌표가 음수입니다.")
+            if frame.x + frame.width > SPRITE_SHEET_WIDTH:
+                raise ValueError(f"{action.name}의 {index}번 프레임이 이미지 오른쪽을 벗어납니다.")
+            if frame.y + frame.height > SPRITE_SHEET_HEIGHT:
+                raise ValueError(f"{action.name}의 {index}번 프레임이 이미지 아래쪽을 벗어납니다.")
+
+
 def main() -> None:
     """애니메이션 뷰어를 초기화하고 게임 루프를 실행한다."""
     from pico2d import close_canvas, load_image, open_canvas
 
+    validate_action_data()
     open_canvas(SCREEN_WIDTH, SCREEN_HEIGHT)
     try:
         sprite_sheet = load_image(str(SPRITE_SHEET_PATH))
