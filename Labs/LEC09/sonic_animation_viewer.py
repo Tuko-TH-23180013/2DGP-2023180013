@@ -180,6 +180,18 @@ def draw_scene(image: object, state: PlaybackState) -> None:
     update_canvas()
 
 
+def process_events() -> bool:
+    """창 닫기와 Escape 입력을 처리하고 실행 여부를 반환한다."""
+    from pico2d import SDL_KEYDOWN, SDL_QUIT, SDLK_ESCAPE, get_events
+
+    for event in get_events():
+        if event.type == SDL_QUIT:
+            return False
+        if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            return False
+    return True
+
+
 def main() -> None:
     """애니메이션 뷰어를 초기화하고 게임 루프를 실행한다."""
     from pico2d import close_canvas, load_image, open_canvas
