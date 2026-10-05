@@ -184,13 +184,16 @@ def draw_scene(image: object, state: PlaybackState) -> None:
     frame = action.frames[state.frame_index]
     frame_phase = (state.frame_index + state.frame_accumulator / FRAME_INTERVAL) / len(action.frames)
     jump_offset = 0
+    baseline_y = BASELINE_Y
     if action.movement == "jump":
         from math import sin, pi
 
         jump_offset = round(JUMP_HEIGHT * max(0.0, sin(pi * frame_phase)))
+    elif action.movement == "center":
+        baseline_y = SCREEN_HEIGHT / 2 - frame.height * CHARACTER_SCALE / 2
 
     clear_canvas()
-    draw_frame(image, frame, state.x, BASELINE_Y + jump_offset, state.direction)
+    draw_frame(image, frame, state.x, baseline_y + jump_offset, state.direction)
     update_canvas()
 
 
