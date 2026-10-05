@@ -129,9 +129,16 @@ def main() -> None:
     validate_action_data()
     open_canvas(SCREEN_WIDTH, SCREEN_HEIGHT)
     try:
-        sprite_sheet = load_image(str(SPRITE_SHEET_PATH))
+        if not SPRITE_SHEET_PATH.is_file():
+            raise FileNotFoundError(f"스프라이트 시트를 찾을 수 없습니다: {SPRITE_SHEET_PATH}")
+        try:
+            sprite_sheet = load_image(str(SPRITE_SHEET_PATH))
+        except Exception as error:
+            raise RuntimeError(f"스프라이트 시트를 읽을 수 없습니다: {SPRITE_SHEET_PATH}") from error
         # 렌더링과 재생 상태는 이후 개발 단계에서 이 루프에 추가한다.
         del sprite_sheet
+    except (FileNotFoundError, RuntimeError) as error:
+        print(error)
     finally:
         close_canvas()
 
