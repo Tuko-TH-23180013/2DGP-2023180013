@@ -13,6 +13,8 @@ CHARACTER_SCALE = 4
 ACTION_REPEAT_COUNT = 9
 ACTION_PAUSE_SECONDS = 1.0
 FRAME_INTERVAL = 0.08
+MOVEMENT_SPEED = 220.0
+EDGE_PADDING = 16
 BASELINE_Y = 150
 JUMP_HEIGHT = 160
 
@@ -230,6 +232,7 @@ def update_playback(state: PlaybackState, elapsed: float) -> None:
             advance_action(state)
         return
 
+    update_position(state, ACTIONS[state.action_index], elapsed)
     state.frame_accumulator += elapsed
     while state.frame_accumulator >= FRAME_INTERVAL:
         state.frame_accumulator -= FRAME_INTERVAL
@@ -237,6 +240,26 @@ def update_playback(state: PlaybackState, elapsed: float) -> None:
             state.frame_accumulator = 0.0
             state.pause_remaining = ACTION_PAUSE_SECONDS
             return
+
+
+def update_position(state: PlaybackState, action: Action, elapsed: float) -> None:
+    """이동 동작의 위치를 시간에 따라 갱신하고 화면 경계에서 반전한다."""
+    if action.movement == "center":
+        state.x = SCREEN_WIDTH / 2
+        return
+
+    widest_frame = max(frame.width for frame in action.frames) * CHARACTER_SCALE
+    left_bound = widest_frame / 2 + EDGE_PADDING
+    right_bound = SCREEN_WIDTH - widest_frame / 2 - EDGE_PADDING
+    state.x += state.direction * MOVEMENT_SPEED * elapsed
+
+    while state.x < left_bound or state.x > right_bound:
+        if state.x < left_bound:
+            state.x = left_bound + (left_bound - state.x)
+            state.direction = 1
+        elif state.x > right_bound:
+            state.x = right_bound - (state.x - right_bound)
+            state.direction = -1
 
 
 def main() -> None:
