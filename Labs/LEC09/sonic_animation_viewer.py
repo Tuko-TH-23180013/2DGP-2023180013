@@ -241,6 +241,7 @@ def update_playback(state: PlaybackState, elapsed: float) -> None:
 
 def main() -> None:
     """애니메이션 뷰어를 초기화하고 게임 루프를 실행한다."""
+    from time import perf_counter
     from pico2d import close_canvas, delay, load_image, open_canvas
 
     validate_action_data()
@@ -255,9 +256,14 @@ def main() -> None:
         validate_image_dimensions(sprite_sheet)
         state = PlaybackState()
         running = True
+        previous_tick = perf_counter()
         while running:
             running = process_events()
             if running:
+                current_tick = perf_counter()
+                elapsed = current_tick - previous_tick
+                previous_tick = current_tick
+                update_playback(state, elapsed)
                 draw_scene(sprite_sheet, state)
                 delay(1 / 60)
     except (FileNotFoundError, RuntimeError) as error:
