@@ -194,7 +194,7 @@ def process_events() -> bool:
 
 def main() -> None:
     """애니메이션 뷰어를 초기화하고 게임 루프를 실행한다."""
-    from pico2d import close_canvas, load_image, open_canvas
+    from pico2d import close_canvas, delay, load_image, open_canvas
 
     validate_action_data()
     open_canvas(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -206,8 +206,13 @@ def main() -> None:
         except Exception as error:
             raise RuntimeError(f"스프라이트 시트를 읽을 수 없습니다: {SPRITE_SHEET_PATH}") from error
         validate_image_dimensions(sprite_sheet)
-        # 렌더링과 재생 상태는 이후 개발 단계에서 이 루프에 추가한다.
-        del sprite_sheet
+        state = PlaybackState()
+        running = True
+        while running:
+            running = process_events()
+            if running:
+                draw_scene(sprite_sheet, state)
+                delay(1 / 60)
     except (FileNotFoundError, RuntimeError) as error:
         print(error)
     finally:
