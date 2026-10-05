@@ -192,6 +192,16 @@ def process_events() -> bool:
     return True
 
 
+def advance_action(state: PlaybackState) -> None:
+    """다음 동작으로 옮기고 프레임·반복 상태를 초기화한다."""
+    state.action_index = (state.action_index + 1) % len(ACTIONS)
+    state.frame_index = 0
+    state.completed_repeats = 0
+    state.frame_accumulator = 0.0
+    if ACTIONS[state.action_index].movement == "center":
+        state.x = SCREEN_WIDTH / 2
+
+
 def main() -> None:
     """애니메이션 뷰어를 초기화하고 게임 루프를 실행한다."""
     from pico2d import close_canvas, delay, load_image, open_canvas
