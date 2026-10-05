@@ -218,6 +218,27 @@ def advance_frame(state: PlaybackState) -> bool:
     return False
 
 
+def update_playback(state: PlaybackState, elapsed: float) -> None:
+    """실제 경과 시간으로 프레임과 동작 전환 정지를 갱신한다."""
+    if elapsed <= 0:
+        return
+
+    if state.pause_remaining > 0:
+        state.pause_remaining -= elapsed
+        if state.pause_remaining <= 0:
+            state.pause_remaining = 0.0
+            advance_action(state)
+        return
+
+    state.frame_accumulator += elapsed
+    while state.frame_accumulator >= FRAME_INTERVAL:
+        state.frame_accumulator -= FRAME_INTERVAL
+        if advance_frame(state):
+            state.frame_accumulator = 0.0
+            state.pause_remaining = ACTION_PAUSE_SECONDS
+            return
+
+
 def main() -> None:
     """애니메이션 뷰어를 초기화하고 게임 루프를 실행한다."""
     from pico2d import close_canvas, delay, load_image, open_canvas
