@@ -13,6 +13,8 @@ CHARACTER_SCALE = 4
 ACTION_REPEAT_COUNT = 9
 ACTION_PAUSE_SECONDS = 1.0
 FRAME_INTERVAL = 0.08
+BASELINE_Y = 150
+JUMP_HEIGHT = 160
 
 SPRITE_SHEET_PATH = Path(__file__).resolve().with_name("sonic-sprite.png")
 SPRITE_SHEET_WIDTH = 399
@@ -131,6 +133,20 @@ def validate_image_dimensions(image: object) -> None:
             "스프라이트 시트 크기가 예상과 다릅니다: "
             f"예상 {SPRITE_SHEET_WIDTH}×{SPRITE_SHEET_HEIGHT}, 실제 {width}×{height}"
         )
+
+
+def draw_frame(image: object, frame: Frame, center_x: float, baseline_y: float) -> None:
+    """클리핑 좌표를 변환해 프레임을 4배 크기로 출력한다."""
+    image.clip_draw(
+        frame.x,
+        frame.pico_bottom(SPRITE_SHEET_HEIGHT),
+        frame.width,
+        frame.height,
+        round(center_x),
+        round(baseline_y + frame.height * CHARACTER_SCALE / 2),
+        frame.width * CHARACTER_SCALE,
+        frame.height * CHARACTER_SCALE,
+    )
 
 
 def main() -> None:
