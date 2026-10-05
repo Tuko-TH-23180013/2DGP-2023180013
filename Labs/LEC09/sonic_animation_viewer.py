@@ -162,6 +162,24 @@ def draw_frame(image: object, frame: Frame, center_x: float, baseline_y: float) 
     )
 
 
+def draw_scene(image: object, state: PlaybackState) -> None:
+    """캔버스를 비우고 현재 동작 프레임을 그린 뒤 표시한다."""
+    from pico2d import clear_canvas, update_canvas
+
+    action = ACTIONS[state.action_index]
+    frame = action.frames[state.frame_index]
+    frame_phase = (state.frame_index + state.frame_accumulator / FRAME_INTERVAL) / len(action.frames)
+    jump_offset = 0
+    if action.movement == "jump":
+        from math import sin, pi
+
+        jump_offset = round(JUMP_HEIGHT * max(0.0, sin(pi * frame_phase)))
+
+    clear_canvas()
+    draw_frame(image, frame, state.x, BASELINE_Y + jump_offset)
+    update_canvas()
+
+
 def main() -> None:
     """애니메이션 뷰어를 초기화하고 게임 루프를 실행한다."""
     from pico2d import close_canvas, load_image, open_canvas
