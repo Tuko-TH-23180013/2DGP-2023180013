@@ -46,6 +46,19 @@ class Action:
     movement: Literal["bounce", "jump", "center"]
 
 
+@dataclass
+class PlaybackState:
+    """게임 루프에서 변하는 애니메이션 및 위치 상태."""
+
+    action_index: int = 0
+    frame_index: int = 0
+    completed_repeats: int = 0
+    frame_accumulator: float = 0.0
+    pause_remaining: float = 0.0
+    x: float = SCREEN_WIDTH / 2
+    direction: int = 1
+
+
 def _make_frames(rectangles: tuple[tuple[int, int, int, int], ...]) -> tuple[Frame, ...]:
     return tuple(Frame(*rectangle) for rectangle in rectangles)
 
