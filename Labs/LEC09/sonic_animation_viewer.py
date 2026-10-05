@@ -202,6 +202,22 @@ def advance_action(state: PlaybackState) -> None:
         state.x = SCREEN_WIDTH / 2
 
 
+def advance_frame(state: PlaybackState) -> bool:
+    """한 프레임 진행하고 동작의 반복 9회가 끝났는지 반환한다."""
+    action = ACTIONS[state.action_index]
+    state.frame_index += 1
+    if state.frame_index < len(action.frames):
+        return False
+
+    state.completed_repeats += 1
+    if state.completed_repeats >= ACTION_REPEAT_COUNT:
+        state.frame_index = len(action.frames) - 1
+        return True
+
+    state.frame_index = 0
+    return False
+
+
 def main() -> None:
     """애니메이션 뷰어를 초기화하고 게임 루프를 실행한다."""
     from pico2d import close_canvas, delay, load_image, open_canvas
