@@ -120,6 +120,15 @@ def validate_action_data() -> None:
     """PRD의 동작 수, 프레임 수, 스프라이트 시트 경계를 확인한다."""
     if len(ACTIONS) != EXPECTED_ACTION_COUNT:
         raise ValueError(f"동작 수가 {EXPECTED_ACTION_COUNT}개가 아닙니다.")
+    if len({action.name for action in ACTIONS}) != EXPECTED_ACTION_COUNT:
+        raise ValueError("동작 ID가 중복되어 있습니다.")
+
+    center_actions = sum(action.movement == "center" for action in ACTIONS)
+    jump_actions = sum(action.movement == "jump" for action in ACTIONS)
+    if center_actions != 2 or jump_actions != 1:
+        raise ValueError("중앙 고정 동작 2개와 점프 동작 1개를 지정해야 합니다.")
+    if sum(action.movement != "center" for action in ACTIONS) != 8:
+        raise ValueError("이동 동작은 8개여야 합니다.")
 
     frame_count = sum(len(action.frames) for action in ACTIONS)
     if frame_count != EXPECTED_FRAME_COUNT:
