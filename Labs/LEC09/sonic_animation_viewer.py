@@ -150,18 +150,30 @@ def validate_image_dimensions(image: object) -> None:
         )
 
 
-def draw_frame(image: object, frame: Frame, center_x: float, baseline_y: float) -> None:
+def draw_frame(
+    image: object,
+    frame: Frame,
+    center_x: float,
+    baseline_y: float,
+    facing: int = 1,
+) -> None:
     """클리핑 좌표를 변환해 프레임을 4배 크기로 출력한다."""
-    image.clip_draw(
+    source = (
         frame.x,
         frame.pico_bottom(SPRITE_SHEET_HEIGHT),
         frame.width,
         frame.height,
+    )
+    destination = (
         round(center_x),
         round(baseline_y + frame.height * CHARACTER_SCALE / 2),
         frame.width * CHARACTER_SCALE,
         frame.height * CHARACTER_SCALE,
     )
+    if facing < 0:
+        image.clip_composite_draw(*source, 0, "h", *destination)
+    else:
+        image.clip_draw(*source, *destination)
 
 
 def draw_scene(image: object, state: PlaybackState) -> None:
@@ -178,7 +190,7 @@ def draw_scene(image: object, state: PlaybackState) -> None:
         jump_offset = round(JUMP_HEIGHT * max(0.0, sin(pi * frame_phase)))
 
     clear_canvas()
-    draw_frame(image, frame, state.x, BASELINE_Y + jump_offset)
+    draw_frame(image, frame, state.x, BASELINE_Y + jump_offset, state.direction)
     update_canvas()
 
 
