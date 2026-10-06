@@ -42,3 +42,6 @@ def update_character(delta_time):
     dy = int(SDLK_UP in pressed_keys) - int(SDLK_DOWN in pressed_keys)
     moving = dx != 0 or dy != 0
 
+    if dx > 0:
+        facing_right = True
+    elif dx < 0:
