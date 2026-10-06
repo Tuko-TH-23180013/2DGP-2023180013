@@ -36,3 +36,6 @@ def handle_events():
 
 
 def update_character(delta_time):
+    global x, y, facing_right, frame, animation_elapsed
+
+    dx = int(SDLK_RIGHT in pressed_keys) - int(SDLK_LEFT in pressed_keys)
