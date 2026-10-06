@@ -10,3 +10,7 @@ FRAME_INTERVAL = 0.1
 open_canvas(SCREEN_WIDTH, SCREEN_HEIGHT)
 background = load_image('TUK_GROUND.png')
 character = load_image('animation_sheet.png')
+
+running = True
+x, y = SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2
+facing_right = True
