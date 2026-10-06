@@ -33,3 +33,6 @@ def handle_events():
                 pressed_keys.add(event.key)
         elif event.type == SDL_KEYUP:
             pressed_keys.discard(event.key)
+
+
+def update_character(delta_time):
