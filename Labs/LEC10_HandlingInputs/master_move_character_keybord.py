@@ -71,3 +71,6 @@ def draw_character(moving):
         row = 3 if facing_right else 2
     character.clip_draw(frame * 100, row * 100, 100, 100, int(x), int(y))
 
+
+while running:
+    now = get_time()
