@@ -74,3 +74,6 @@ def draw_character(moving):
 
 while running:
     now = get_time()
+    delta_time = min(now - previous_time, 0.05)
+    previous_time = now
+
