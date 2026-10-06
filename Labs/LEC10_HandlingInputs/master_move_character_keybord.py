@@ -23,3 +23,6 @@ previous_time = get_time()
 def handle_events():
     global running
     events = get_events()
+    for event in events:
+        if event.type == SDL_QUIT:
+            running = False
