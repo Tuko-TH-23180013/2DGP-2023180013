@@ -29,3 +29,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN:
             if event.key == SDLK_ESCAPE:
                 running = False
+            elif event.key in (SDLK_LEFT, SDLK_RIGHT, SDLK_UP, SDLK_DOWN):
+                pressed_keys.add(event.key)
+        elif event.type == SDL_KEYUP:
+            pressed_keys.discard(event.key)
