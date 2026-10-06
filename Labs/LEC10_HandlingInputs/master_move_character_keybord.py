@@ -52,3 +52,6 @@ def update_character(delta_time):
         if dx and dy:
             distance *= 0.70710678
         x += dx * distance
+        y += dy * distance
+        x = max(CHARACTER_HALF_SIZE, min(SCREEN_WIDTH - CHARACTER_HALF_SIZE, x))
+        y = max(CHARACTER_HALF_SIZE, min(SCREEN_HEIGHT - CHARACTER_HALF_SIZE, y))
