@@ -20,3 +20,6 @@ animation_elapsed = 0.0
 previous_time = get_time()
 
 
+def handle_events():
+    global running
+    events = get_events()
