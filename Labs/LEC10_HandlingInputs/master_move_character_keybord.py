@@ -77,3 +77,6 @@ while running:
     delta_time = min(now - previous_time, 0.05)
     previous_time = now
 
+    handle_events()
+    moving = update_character(delta_time)
+
