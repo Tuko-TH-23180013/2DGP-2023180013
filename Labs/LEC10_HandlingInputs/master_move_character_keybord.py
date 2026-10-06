@@ -64,3 +64,6 @@ def update_character(delta_time):
     return moving
 
 
+def draw_character(moving):
+    if moving:
+        row = 1 if facing_right else 0
