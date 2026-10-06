@@ -45,3 +45,6 @@ def update_character(delta_time):
     if dx > 0:
         facing_right = True
     elif dx < 0:
+        facing_right = False
+
+    if moving:
