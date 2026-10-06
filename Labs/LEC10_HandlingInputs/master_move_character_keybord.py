@@ -55,3 +55,6 @@ def update_character(delta_time):
         y += dy * distance
         x = max(CHARACTER_HALF_SIZE, min(SCREEN_WIDTH - CHARACTER_HALF_SIZE, x))
         y = max(CHARACTER_HALF_SIZE, min(SCREEN_HEIGHT - CHARACTER_HALF_SIZE, y))
+
+    animation_elapsed += delta_time
+    while animation_elapsed >= FRAME_INTERVAL:
