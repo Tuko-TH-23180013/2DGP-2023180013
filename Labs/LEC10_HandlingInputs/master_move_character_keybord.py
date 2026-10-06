@@ -48,3 +48,7 @@ def update_character(delta_time):
         facing_right = False
 
     if moving:
+        distance = MOVE_SPEED * delta_time
+        if dx and dy:
+            distance *= 0.70710678
+        x += dx * distance
