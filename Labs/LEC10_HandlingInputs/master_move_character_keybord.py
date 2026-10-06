@@ -14,3 +14,6 @@ character = load_image('animation_sheet.png')
 running = True
 x, y = SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2
 facing_right = True
+pressed_keys = set()
+frame = 0
+animation_elapsed = 0.0
