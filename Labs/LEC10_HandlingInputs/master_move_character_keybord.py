@@ -61,3 +61,6 @@ def update_character(delta_time):
         frame = (frame + 1) % 8
         animation_elapsed -= FRAME_INTERVAL
 
+    return moving
+
+
