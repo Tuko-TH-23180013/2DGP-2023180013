@@ -67,3 +67,7 @@ def update_character(delta_time):
 def draw_character(moving):
     if moving:
         row = 1 if facing_right else 0
+    else:
+        row = 3 if facing_right else 2
+    character.clip_draw(frame * 100, row * 100, 100, 100, int(x), int(y))
+
