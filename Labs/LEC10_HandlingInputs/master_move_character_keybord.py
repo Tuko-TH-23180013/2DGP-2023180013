@@ -80,3 +80,6 @@ while running:
     handle_events()
     moving = update_character(delta_time)
 
+    clear_canvas()
+    background.draw(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+    draw_character(moving)
