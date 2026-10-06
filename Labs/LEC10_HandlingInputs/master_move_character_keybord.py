@@ -83,3 +83,6 @@ while running:
     clear_canvas()
     background.draw(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
     draw_character(moving)
+    update_canvas()
+
+close_canvas()
