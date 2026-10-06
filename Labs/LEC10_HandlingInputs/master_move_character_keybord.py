@@ -17,3 +17,6 @@ facing_right = True
 pressed_keys = set()
 frame = 0
 animation_elapsed = 0.0
+previous_time = get_time()
+
+
